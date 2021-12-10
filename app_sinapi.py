@@ -38,6 +38,8 @@ def busca_sinapi(palavras, tipo_busca):
         if tipo_busca!=lista_opcoes[2]:
             df_consulta = df_consulta[df_consulta[coluna].astype(str).str.lower().str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.contains(palavra.lower())].copy()
         else:
+            if palavras=="":
+                palavras=0
             
 
             st.write(palavra)             
