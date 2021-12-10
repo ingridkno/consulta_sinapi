@@ -46,7 +46,7 @@ def busca_sinapi(palavras, tipo_busca):
                 df_consulta =df_consulta.loc[df_consulta[coluna]==int(palavras), df_consulta.columns[2:]].dropna()
 
             except:
-                print ("Tente um número de composição existente")
+                st.write("Tente um número de composição existente")
 
     
     return df_consulta
