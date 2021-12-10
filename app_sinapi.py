@@ -30,7 +30,7 @@ def busca_sinapi(palavras, tipo_busca):
     elif tipo_busca=='composicao':
         df_consulta = df_composicao.copy()
         coluna = 'DESCRICAO DA COMPOSICAO'
-    else:
+    elif tipo_busca==lista_opcoes[2]:
         df_consulta = df[['CODIGO DA COMPOSICAO','DESCRICAO DA COMPOSICAO','TIPO ITEM','CODIGO ITEM', 'DESCRIÇÃO ITEM','UNIDADE ITEM','PRECO UNITARIO']].copy()
         coluna = 'CODIGO DA COMPOSICAO'
      
