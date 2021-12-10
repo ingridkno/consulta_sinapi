@@ -45,7 +45,7 @@ def busca_sinapi(palavras, tipo_busca):
                 st.write(df_consulta.loc[df_consulta[coluna]==int(palavras), 'DESCRICAO DA COMPOSICAO'].tolist()[0])
                 df_consulta =df_consulta.loc[df_consulta[coluna]==int(palavras), df_consulta.columns[2:]].dropna()
 
-            except IndexError:
+            except:
                 print ("Tente um número de composição existente")
 
     
