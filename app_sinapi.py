@@ -38,14 +38,16 @@ def busca_sinapi(palavras, tipo_busca):
         if tipo_busca!=lista_opcoes[2]:
             df_consulta = df_consulta[df_consulta[coluna].astype(str).str.lower().str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8').str.contains(palavra.lower())].copy()
         else:
-            if palavras=="":
-                palavras=0
-            
+            try :
 
-            st.write(palavra)             
-            st.write(df_consulta.loc[df_consulta[coluna]==int(palavras), 'DESCRICAO DA COMPOSICAO'].tolist()[0])
-            df_consulta =df_consulta.loc[df_consulta[coluna]==int(palavras), df_consulta.columns[2:]].dropna()
-    
+
+                st.write(palavra)             
+                st.write(df_consulta.loc[df_consulta[coluna]==int(palavras), 'DESCRICAO DA COMPOSICAO'].tolist()[0])
+                df_consulta =df_consulta.loc[df_consulta[coluna]==int(palavras), df_consulta.columns[2:]].dropna()
+
+            except IndexError:
+                print ("Tente um número de composição existente")
+
     
     return df_consulta
 
