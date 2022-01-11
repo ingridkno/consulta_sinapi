@@ -1,3 +1,5 @@
+#http://www.sinapi.ibge.gov.br/Catalogo_Insumos/Imprimir_Catalogo/?cod_ibge=7005
+
 import pandas as pd
 import unicodedata
 import streamlit as st
