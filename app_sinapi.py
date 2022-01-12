@@ -137,7 +137,7 @@ df_busca = busca_sinapi(palavras, tipo_busca, coluna, df_busca_, lista_palavras)
 #st.table(df_busca.dropna(thresh=3).reset_index(drop=True))  # , 2000, 400)
 
 link_google = 'https://www.google.com/search?q='+'+'.join(palavras.split(' '))+'&tbm=shop'
-st.markdown("[Google Shopping](link_google)",unsafe_allow_html=True)
+st.markdown(link_google)
 # st.write("check out this [link](https://share.streamlit.io/mesmith027/streamlit_webapps/main/MC_pi/streamlit_app.py)")
 st.write(df_busca.reset_index(drop=True).to_html(escape=False, index=False), unsafe_allow_html=True)
 
