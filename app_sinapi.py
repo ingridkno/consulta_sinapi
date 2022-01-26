@@ -5,7 +5,7 @@ import numpy as np
 
 st.set_page_config(layout="wide")
 
-file = 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202111_Desonerado.csv'
+file = 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202112_Desonerado.csv'
 file_insumos_ficha = 'Arquivos A a Z.csv'
 file_insumos_ficha_marcas = 'Arquivos A a Z_com_marcas.csv'
 file_codigos_caixa_ibge = 'codigo_ibge_caixa.csv'
@@ -110,7 +110,7 @@ def busca_sinapi(palavras, tipo_busca, coluna, df_consulta, lista_palavras):
 
     return df_consulta
 
-st.title('SINAPI Novembro 2021 - Desonerado')
+st.title('SINAPI Dezembro 2021 - Desonerado')
 
 tipo_busca = st.radio('Tipo de busca', lista_opcoes, 0)
 
