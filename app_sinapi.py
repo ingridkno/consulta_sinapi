@@ -146,6 +146,7 @@ st.markdown(link_google)
 if tipo_busca == lista_opcoes[2]:
     for composicao in df_busca.loc[:, 'DESCRICAO DA COMPOSICAO'].unique().tolist():
         codigo_composicao = df_busca.loc[df_busca['DESCRICAO DA COMPOSICAO']==composicao, 'CODIGO DA COMPOSICAO'].tolist()[0]
+        st.write('____________________')
         st.write(' ')
         st.write('**'+ str(codigo_composicao) + ' - '+composicao+'**')
         st.write(' ')
