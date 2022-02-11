@@ -65,7 +65,7 @@ def tabela_tipo_sinapi(tipo_busca):
     elif tipo_busca == lista_opcoes[2]:
         df_consulta = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
                           'TIPO ITEM', 'CODIGO ITEM', 'DESCRIÇÃO ITEM',
-                          'UNIDADE ITEM', 'PRECO UNITARIO']].copy()
+                          'UNIDADE ITEM', 'COEFICIENTE', 'PRECO UNITARIO']].copy()
 
         coluna = 'CODIGO DA COMPOSICAO'
     elif tipo_busca == lista_opcoes[3]:
@@ -105,8 +105,8 @@ def busca_sinapi(palavras, tipo_busca, coluna, df_consulta, lista_palavras):
                     .str.contains(palavra.lower())].copy()
 
     if tipo_busca == lista_opcoes[2]:
-        st.write(df_consulta.loc[:, 'DESCRICAO DA COMPOSICAO'].tolist()[0])
-        df_consulta = df_consulta.loc[:, df_consulta.columns[2:]].dropna()
+        #st.write(df_consulta.loc[:, 'DESCRICAO DA COMPOSICAO'].tolist()[0])
+        df_consulta = df_consulta.loc[:, :].dropna()
 
     return df_consulta
 
@@ -139,8 +139,21 @@ df_busca = busca_sinapi(palavras, tipo_busca, coluna, df_busca_, lista_palavras)
 link_google = 'https://www.google.com/search?q='+'+'.join(palavras.split(' '))+'&tbm=shop'
 st.markdown(link_google)
 # st.write("check out this [link](https://share.streamlit.io/mesmith027/streamlit_webapps/main/MC_pi/streamlit_app.py)")
-st.write(df_busca.reset_index(drop=True).to_html(escape=False, index=False), unsafe_allow_html=True)
 
+
+if tipo_busca == lista_opcoes[2]:
+    for composicao in df_busca.loc[:, 'DESCRICAO DA COMPOSICAO'].unique().tolist():
+        codigo_composicao = df_busca.loc[df_busca['DESCRICAO DA COMPOSICAO']==composicao, 'CODIGO DA COMPOSICAO'].tolist()[0]
+        st.write(' ')
+        st.write('**'+ str(codigo_composicao) + ' - '+composicao+'**')
+        st.write(' ')
+        df_temp = df_busca.loc[df_busca['DESCRICAO DA COMPOSICAO']==composicao, df_busca.columns[2:]]
+        dataframe_show = df_temp.reset_index(drop=True).to_html(escape=False, index=False)
+        st.write(dataframe_show, unsafe_allow_html=True)
+
+else:
+    dataframe_show= df_busca.reset_index(drop=True).to_html(escape=False, index=False)
+    st.write(dataframe_show, unsafe_allow_html=True)
 
 #----------------------------------------------------------------------------------------------------------------------------
 # import pandas as pd
