@@ -62,12 +62,14 @@ def tabela_tipo_sinapi(tipo_busca):
     elif tipo_busca == 'composicao':
         df_consulta = df_composicao.copy()
         coluna = 'DESCRICAO DA COMPOSICAO'
+        
     elif tipo_busca == lista_opcoes[2]:
         df_consulta = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
                           'TIPO ITEM', 'CODIGO ITEM', 'DESCRIÇÃO ITEM',
                           'UNIDADE ITEM', 'COEFICIENTE', 'PRECO UNITARIO']].copy()
 
-        coluna = 'CODIGO DA COMPOSICAO'
+#         coluna = 'CODIGO DA COMPOSICAO'
+        coluna = 'DESCRICAO DA COMPOSICAO'
     elif tipo_busca == lista_opcoes[3]:
         df_consulta = df_ficha[df_ficha.columns[1:]]
         coluna = 'Descrição Básica'
