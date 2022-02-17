@@ -37,7 +37,7 @@ df_composicao = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
 
 df_ficha = df_ficha.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 df_ficha_marcas = df_ficha_marcas.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
-df_insumos = df_insumos.merge(cod_ibge_caixa, left_on="CODIGO ", right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
+df_insumos = df_insumos.merge(cod_ibge_caixa, left_on="CODIGO  ", right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 
 def make_clickable(link):
     # target _blank to open new window
