@@ -22,17 +22,19 @@ cod_ibge_caixa = pd.read_csv(file_codigos_caixa_ibge)
 cod_ibge_caixa = cod_ibge_caixa[['cod_ibge','cod_caixa']].fillna(0).astype(int)#.astype(str)
 link ='http://www.sinapi.ibge.gov.br/Catalogo_Insumos/Imprimir_Catalogo/?cod_ibge='
 
-df_insumos = df.loc[df['TIPO ITEM'] == 'INSUMO',
-                    ['TIPO ITEM', 'CODIGO ITEM', 'DESCRIÇÃO ITEM',
-                     'UNIDADE ITEM', 'PRECO UNITARIO']] \
-    .drop_duplicates()  # ,'CUSTO TOTAL']]
+# df_insumos = df.loc[df['TIPO ITEM'] == 'INSUMO',
+#                     ['TIPO ITEM', 'CODIGO ITEM', 'DESCRIÇÃO ITEM',
+#                      'UNIDADE ITEM', 'PRECO UNITARIO']] \
+#     .drop_duplicates()  # ,'CUSTO TOTAL']]
+
+df_insumos = pd.read_excel('SINAPI_Preco_Ref_Insumos_SC_122021_Desonerado.xls', header=6)
 
 df_composicao = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
                     'UNIDADE', 'CUSTO TOTAL']].drop_duplicates().copy()
 
 df_ficha = df_ficha.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 df_ficha_marcas = df_ficha_marcas.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
-df_insumos = df_insumos.merge(cod_ibge_caixa, left_on='CODIGO ITEM', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
+df_insumos = df_insumos.merge(cod_ibge_caixa, left_on="CODIGO  ", right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 
 def make_clickable(link):
     # target _blank to open new window
@@ -58,7 +60,7 @@ lista_opcoes = ['insumo', 'composicao', 'insumos_composicao', 'ficha_especificac
 def tabela_tipo_sinapi(tipo_busca):
     if tipo_busca == 'insumo':
         df_consulta = df_insumos.copy()
-        coluna = 'DESCRIÇÃO ITEM'
+        coluna = 'DESCRICAO DO INSUMO'
     elif tipo_busca == 'composicao':
         df_consulta = df_composicao.copy()
         coluna = 'DESCRICAO DA COMPOSICAO'
