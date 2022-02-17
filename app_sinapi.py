@@ -37,7 +37,7 @@ df_composicao = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
 
 df_ficha = df_ficha.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 df_ficha_marcas = df_ficha_marcas.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
-df_insumos = df_insumos.merge(cod_ibge_caixa, left_on="CODIGO  ", right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
+#df_insumos = df_insumos.merge(cod_ibge_caixa, left_on="CODIGO  ", right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 
 def make_clickable(link):
     # target _blank to open new window
@@ -48,11 +48,11 @@ def make_clickable(link):
 
 df_ficha['cod_ibge'] = link+df_ficha['cod_ibge'].fillna(0).astype(int).astype(str)
 df_ficha_marcas['cod_ibge'] = link+df_ficha_marcas['cod_ibge'].fillna(0).astype(int).astype(str)
-df_insumos['cod_ibge'] = link+df_insumos['cod_ibge'].fillna(0).astype(int).astype(str)
+#df_insumos['cod_ibge'] = link+df_insumos['cod_ibge'].fillna(0).astype(int).astype(str)
 # link is the column with hyperlinks
 df_ficha['cod_ibge'] = df_ficha['cod_ibge'].apply(make_clickable)
 df_ficha_marcas['cod_ibge'] = df_ficha_marcas['cod_ibge'].apply(make_clickable)
-df_insumos['cod_ibge'] = df_insumos['cod_ibge'].apply(make_clickable)
+#df_insumos['cod_ibge'] = df_insumos['cod_ibge'].apply(make_clickable)
 
 
 
