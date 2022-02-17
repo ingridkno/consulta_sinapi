@@ -28,9 +28,7 @@ link ='http://www.sinapi.ibge.gov.br/Catalogo_Insumos/Imprimir_Catalogo/?cod_ibg
 #     .drop_duplicates()  # ,'CUSTO TOTAL']]
 
 df_insumos = pd.read_csv('SINAPI_Preco_Ref_Insumos_SC_202112_Desonerado.csv')
-
-st.dataframe(df_insumos.head())
-st.write(df_insumos.columns.tolist())
+df_insumos = df_insumos[df_insumos.columns[1:]]
 
 df_composicao = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
                     'UNIDADE', 'CUSTO TOTAL']].drop_duplicates().copy()
