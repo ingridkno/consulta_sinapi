@@ -46,10 +46,10 @@ df_ficha = df_ficha.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on=
 df_ficha_marcas = df_ficha_marcas.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 #df_insumos = df_insumos.merge(cod_ibge_caixa, left_on="CODIGO  ", right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 #st.write(df_insumos.columns.tolist())
-file_imagens = os.path.join(imagem_path, 'A_A_df_imagens_referencia.csv')
-df_imagem = pd.read_csv(file_imagens)
-df_imagem['arquivo'] = 'janeiro_2022 - FichaInsumo\\'+df_imagem['arquivo']+'.pdf' #
-df_imagem = df_imagem.rename(columns={'arquivo':'Arquivo'})
+# file_imagens = os.path.join(imagem_path, 'A_A_df_imagens_referencia.csv')
+# df_imagem = pd.read_csv(file_imagens)
+# df_imagem['arquivo'] = 'janeiro_2022 - FichaInsumo\\'+df_imagem['arquivo']+'.pdf' #
+# df_imagem = df_imagem.rename(columns={'arquivo':'Arquivo'})
 df_ficha = df_ficha.merge(df_imagem, on=['pagina', 'Arquivo'], how='outer')
 
 #descartar colunas
