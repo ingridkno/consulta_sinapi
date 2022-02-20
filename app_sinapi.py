@@ -53,7 +53,7 @@ df_ficha_marcas = df_ficha_marcas.merge(cod_ibge_caixa, left_on='Código do SINA
 #df_ficha = df_ficha.merge(df_imagem, on=['pagina', 'Arquivo'], how='outer')
 
 #descartar colunas
-#df_ficha.drop(['Imagem', 'Obs', 'pagina', 'Arquivo', 'Unnamed: 0_y', 'Atualizado em'], axis=1, inplace=True)
+df_ficha.drop(['Imagem', 'Obs', 'pagina', 'Arquivo', 'Atualizado em'], axis=1, inplace=True)
 #juntar dataframes para colocar marcas na ficha de insumo mais recente
 df_ficha = df_ficha.merge(df_ficha_marcas[['Código do SINAPI', 'Referencial / Parâmetro de Pesquisa']], how='left', on='Código do SINAPI')
 
