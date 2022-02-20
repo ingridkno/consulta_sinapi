@@ -1,17 +1,28 @@
 import pandas as pd
 import unicodedata
 import streamlit as st
+import os
 import numpy as np
 
 st.set_page_config(layout="wide")
 
-file = 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202112_Desonerado.csv'
+encargo_mensalista_sem_desoneracao = 70.94
+encargo_horista_sem_desoneracao = 112.75
+
+BDI = 22.12
+
+file = 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202201_NaoDesonerado.xls'
+file_insumos_custo= 'SINAPI_Preco_Ref_Insumos_SC_012022_NaoDesonerado.xls'
 file_insumos_ficha = 'Arquivos A a Z.csv'
 file_insumos_ficha_marcas = 'Arquivos A a Z_com_marcas.csv'
 file_codigos_caixa_ibge = 'codigo_ibge_caixa.csv'
-file_imagens = ''
+imagem_path = 'Imagens'
 
-df = pd.read_csv(file)
+#df_X = pd.read_excel(file, header=5)
+#df_X.to_csv(file[:-3]+'csv')
+
+df = pd.read_csv(file[:-3]+'csv')
+
 df[['CODIGO ITEM', 'CODIGO DA COMPOSICAO']] = df[['CODIGO ITEM',
                                                   'CODIGO DA COMPOSICAO']].fillna(0) \
     .astype(dtype=int)  # , errors = 'ignore')
@@ -22,13 +33,11 @@ cod_ibge_caixa = pd.read_csv(file_codigos_caixa_ibge)
 cod_ibge_caixa = cod_ibge_caixa[['cod_ibge','cod_caixa']].fillna(0).astype(int)#.astype(str)
 link ='http://www.sinapi.ibge.gov.br/Catalogo_Insumos/Imprimir_Catalogo/?cod_ibge='
 
-# df_insumos = df.loc[df['TIPO ITEM'] == 'INSUMO',
-#                     ['TIPO ITEM', 'CODIGO ITEM', 'DESCRIÇÃO ITEM',
-#                      'UNIDADE ITEM', 'PRECO UNITARIO']] \
-#     .drop_duplicates()  # ,'CUSTO TOTAL']]
 
-df_insumos = pd.read_csv('SINAPI_Preco_Ref_Insumos_SC_202112_Desonerado.csv')
-df_insumos = df_insumos[df_insumos.columns[1:]]
+#df_insumos = pd.read_excel(file_insumos_custo, header=6)
+#df_insumos.to_csv(file_insumos_custo[:-3] +'csv')
+df_insumos= pd.read_csv(file_insumos_custo[:-3]+'csv')
+
 
 df_composicao = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
                     'UNIDADE', 'CUSTO TOTAL']].drop_duplicates().copy()
@@ -36,6 +45,21 @@ df_composicao = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
 df_ficha = df_ficha.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 df_ficha_marcas = df_ficha_marcas.merge(cod_ibge_caixa, left_on='Código do SINAPI', right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
 #df_insumos = df_insumos.merge(cod_ibge_caixa, left_on="CODIGO  ", right_on='cod_caixa', how='left').drop(columns=['cod_caixa'])
+#st.write(df_insumos.columns.tolist())
+file_imagens = os.path.join(imagem_path, 'A_A_df_imagens_referencia.csv')
+df_imagem = pd.read_csv(file_imagens)
+df_imagem['arquivo'] = 'janeiro_2022 - FichaInsumo\\'+df_imagem['arquivo']+'.pdf' #
+df_imagem = df_imagem.rename(columns={'arquivo':'Arquivo'})
+df_ficha = df_ficha.merge(df_imagem, on=['pagina', 'Arquivo'], how='outer')
+
+#descartar colunas
+df_ficha.drop(['Imagem', 'Obs', 'pagina', 'Arquivo', 'Unnamed: 0_y', 'Atualizado em'], axis=1, inplace=True)
+#juntar dataframes para colocar marcas na ficha de insumo mais recente
+df_ficha = df_ficha.merge(df_ficha_marcas[['Código do SINAPI', 'Referencial / Parâmetro de Pesquisa']], how='left', on='Código do SINAPI')
+
+def transformacao_string_numero(coluna, df):
+    df[coluna] = pd.to_numeric(df[coluna].str.replace('.', '').str.replace(',', '.'), errors='ignore')
+    return df
 
 def make_clickable(link):
     # target _blank to open new window
@@ -115,7 +139,9 @@ def busca_sinapi(palavras, tipo_busca, coluna, df_consulta, lista_palavras):
 
     return df_consulta
 
-st.title('SINAPI Dezembro 2021 - Desonerado')
+df_insumos = transformacao_string_numero(df_insumos.columns[-1], df_insumos)
+
+st.title('SINAPI Janeiro 2022 - Não Desonerado')
 
 tipo_busca = st.radio('Tipo de busca', lista_opcoes, 0)
 
