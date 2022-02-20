@@ -50,7 +50,7 @@ df_ficha_marcas = df_ficha_marcas.merge(cod_ibge_caixa, left_on='Código do SINA
 # df_imagem = pd.read_csv(file_imagens)
 # df_imagem['arquivo'] = 'janeiro_2022 - FichaInsumo\\'+df_imagem['arquivo']+'.pdf' #
 # df_imagem = df_imagem.rename(columns={'arquivo':'Arquivo'})
-df_ficha = df_ficha.merge(df_imagem, on=['pagina', 'Arquivo'], how='outer')
+#df_ficha = df_ficha.merge(df_imagem, on=['pagina', 'Arquivo'], how='outer')
 
 #descartar colunas
 df_ficha.drop(['Imagem', 'Obs', 'pagina', 'Arquivo', 'Unnamed: 0_y', 'Atualizado em'], axis=1, inplace=True)
