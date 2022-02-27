@@ -9,7 +9,12 @@ st.set_page_config(layout="wide")
 encargo_mensalista_sem_desoneracao = 70.94
 encargo_horista_sem_desoneracao = 112.75
 
-BDI = 22.12
+BDI_contratao = 22.12
+
+col1, col2 = st.columns([2,7])
+with col1.expander('Taxas'):
+    BDI = st.text_input('Taxa BDI aplicada', str(BDI_contratao))
+    BDI = float(BDI)
 
 file = 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202201_NaoDesonerado.xls'
 file_insumos_custo= 'SINAPI_Preco_Ref_Insumos_SC_012022_NaoDesonerado.xls'
@@ -57,8 +62,9 @@ df_ficha.drop(['Normas Técnicas', 'Imagem', 'Obs', 'pagina', 'Arquivo', 'Atuali
 #juntar dataframes para colocar marcas na ficha de insumo mais recente
 df_ficha = df_ficha.merge(df_ficha_marcas[['Código do SINAPI', 'Referencial / Parâmetro de Pesquisa']], how='left', on='Código do SINAPI')
 
-def transformacao_string_numero(coluna, df):
+def transformacao_string_numero(coluna, df, n=2):
     df[coluna] = pd.to_numeric(df[coluna].str.replace('.', '').str.replace(',', '.'), errors='ignore')
+    df[coluna+' com BDI'] = round(df[coluna]*(1+(BDI/100)), n)
     return df
 
 def make_clickable(link):
@@ -91,9 +97,10 @@ def tabela_tipo_sinapi(tipo_busca):
         coluna = 'DESCRICAO DA COMPOSICAO'
         
     elif tipo_busca == lista_opcoes[2]:
-        df_consulta = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
+        df_consulta = df[['UNIDADE', 'CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
                           'TIPO ITEM', 'CODIGO ITEM', 'DESCRIÇÃO ITEM',
-                          'UNIDADE ITEM', 'COEFICIENTE', 'PRECO UNITARIO', 'CUSTO TOTAL']].copy()
+                          'UNIDADE ITEM', 'COEFICIENTE', 'PRECO UNITARIO', 'CUSTO TOTAL',
+                          'PRECO UNITARIO com BDI', 'CUSTO TOTAL com BDI']].copy()
 
 #         coluna = 'CODIGO DA COMPOSICAO'
         coluna = 'DESCRICAO DA COMPOSICAO'
@@ -140,8 +147,13 @@ def busca_sinapi(palavras, tipo_busca, coluna, df_consulta, lista_palavras):
     return df_consulta
 
 df_insumos = transformacao_string_numero(df_insumos.columns[-1], df_insumos)
+df = transformacao_string_numero('CUSTO TOTAL', df)
+df = transformacao_string_numero('PRECO UNITARIO', df)
+df = transformacao_string_numero('COEFICIENTE', df, n=7)
+df_composicao = transformacao_string_numero('CUSTO TOTAL', df_composicao)
 
 st.title('SINAPI Janeiro 2022 - Não Desonerado')
+st.write('Taxa de BDI atual é ' + str(BDI)+'%')
 
 tipo_busca = st.radio('Tipo de busca', lista_opcoes, 0)
 
@@ -175,11 +187,12 @@ st.markdown(link_google)
 if tipo_busca == lista_opcoes[2]:
     for composicao in df_busca.loc[:, 'DESCRICAO DA COMPOSICAO'].unique().tolist():
         codigo_composicao = df_busca.loc[df_busca['DESCRICAO DA COMPOSICAO']==composicao, 'CODIGO DA COMPOSICAO'].tolist()[0]
+        unidade_composicao = df_busca.loc[df_busca['DESCRICAO DA COMPOSICAO']==composicao, 'UNIDADE'].tolist()[0]
         st.write('____________________')
         st.write(' ')
-        st.write('**'+ str(codigo_composicao) + ' - '+composicao+'**')
+        st.write('**'+ str(codigo_composicao) + ' - '+composicao+ ' ('+unidade_composicao+ ') '+'**')
         st.write(' ')
-        df_temp = df_busca.loc[df_busca['DESCRICAO DA COMPOSICAO']==composicao, df_busca.columns[2:]]
+        df_temp = df_busca.loc[df_busca['DESCRICAO DA COMPOSICAO']==composicao, df_busca.columns[3:]]
         dataframe_show = df_temp.reset_index(drop=True).to_html(escape=False, index=False)
         st.write(dataframe_show, unsafe_allow_html=True)
 
