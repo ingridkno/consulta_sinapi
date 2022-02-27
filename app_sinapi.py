@@ -11,8 +11,9 @@ encargo_horista_sem_desoneracao = 112.75
 
 BDI_contratao = 22.12
 
-col1, col2 = st.columns([2,7])
+col1, col2= st.columns([2, 7])
 with col1.expander('Taxas'):
+    st.selectbox('Base SINAPI', ('Dezembro 2021', 'Janeiro 2022'))
     BDI = st.text_input('Taxa BDI aplicada', str(BDI_contratao))
     BDI = float(BDI)
 
