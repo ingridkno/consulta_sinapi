@@ -42,6 +42,7 @@ link ='http://www.sinapi.ibge.gov.br/Catalogo_Insumos/Imprimir_Catalogo/?cod_ibg
 #df_insumos = pd.read_excel(file_insumos_custo, header=6)
 #df_insumos.to_csv(file_insumos_custo[:-3] +'csv')
 df_insumos= pd.read_csv(file_insumos_custo[:-3]+'csv')
+df_insumos = df_insumos[df_insumos.columns[1:]]
 
 
 df_composicao = df[['CODIGO DA COMPOSICAO', 'DESCRICAO DA COMPOSICAO',
