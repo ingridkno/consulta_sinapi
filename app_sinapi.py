@@ -35,8 +35,8 @@ elif base_sinapi=='Dezembro 2021':
 
 file_insumos_ficha = os.path.join(path_data, ref_mes, 'Arquivos A a Z_'+ref_mes+'.csv')
 
-file_insumos_ficha_marcas = 'Arquivos A a Z_com_marcas.csv'
-file_codigos_caixa_ibge = 'codigo_ibge_caixa.csv'
+file_insumos_ficha_marcas = os.path.join(path_data,'Arquivos A a Z_com_marcas.csv')
+file_codigos_caixa_ibge = os.path.join(path_data,'codigo_ibge_caixa.csv')
 imagem_path = 'Imagens'
 
 #df_X = pd.read_excel(file, header=5)
