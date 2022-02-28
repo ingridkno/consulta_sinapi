@@ -42,7 +42,6 @@ imagem_path = 'Imagens'
 #df_X = pd.read_excel(file, header=5)
 #df_X.to_csv(file[:-3]+'csv')
 
-st.write(file)
 df = pd.read_csv(file[:-3]+'csv')
 
 df[['CODIGO ITEM', 'CODIGO DA COMPOSICAO']] = df[['CODIGO ITEM',
@@ -170,7 +169,8 @@ df = transformacao_string_numero('PRECO UNITARIO', df)
 df = transformacao_string_numero('COEFICIENTE', df, n=7)
 df_composicao = transformacao_string_numero('CUSTO TOTAL', df_composicao)
 
-st.title('SINAPI Janeiro 2022 - Não Desonerado')
+
+st.title('SINAPI '+base_sinapi+' - Não Desonerado')
 st.write('Taxa de BDI atual é ' + str(BDI)+'%')
 
 tipo_busca = st.radio('Tipo de busca', lista_opcoes, 0)
