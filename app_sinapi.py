@@ -24,7 +24,7 @@ mes_numero = {'Janeiro':'01', 'Dezembro':'12'}
 
 #cod_base_sinapi_data =
 ref_mes = ("_".join(base_sinapi.split()))
-path_data = os.path.join('data')
+path_data = os.path.join('./data')
 
 if base_sinapi=='Janeiro 2022':
     file = os.path.join(path_data, ref_mes, 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202201_NaoDesonerado.xls')
