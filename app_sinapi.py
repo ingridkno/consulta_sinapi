@@ -34,7 +34,7 @@ elif base_sinapi=='Dezembro 2021':
     file_insumos_custo= os.path.join(path_data, ref_mes, 'SINAPI_Preco_Ref_Insumos_SC_202112_NaoDesonerado.xls')
 elif base_sinapi=='Fevereiro 2022':
     file = os.path.join(path_data, ref_mes, 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202202_NaoDesonerado.xls')
-    file_insumos_custo= os.path.join(path_data, ref_mes, 'SINAPI_Preco_Ref_Insumos_SC_202202_NaoDesonerado.xls') 
+    file_insumos_custo= os.path.join(path_data, ref_mes, 'SINAPI_Preco_Ref_Insumos_SC_022022_NaoDesonerado.xls') 
 
 file_insumos_ficha = os.path.join(path_data, ref_mes, 'Arquivos A a Z_'+ref_mes+'.csv')
 
