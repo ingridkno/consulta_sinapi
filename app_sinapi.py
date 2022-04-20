@@ -13,14 +13,14 @@ BDI_contratao = 22.12
 
 col1, col2= st.columns([2, 7])
 with col1.expander('Parâmetros'):
-    base_sinapi = st.selectbox('Base SINAPI', ('Dezembro 2021', 'Janeiro 2022', 'Fevereiro 2022'))
+    base_sinapi = st.selectbox('Base SINAPI', ('Dezembro 2021', 'Janeiro 2022', 'Fevereiro 2022', 'Marco 2022'))
     BDI = st.text_input('Taxa BDI aplicada', str(BDI_contratao))
     BDI = float(BDI)
 
 ano_base_sinapi = base_sinapi.split(' ')[1]
 mes_base_sinapi = base_sinapi.split(' ')[0]
 
-mes_numero = {'Janeiro':'01', 'Fevereiro':'02', 'Dezembro':'12'}
+mes_numero = {'Janeiro':'01', 'Fevereiro':'02', 'Marco':'03', 'Dezembro':'12'}
 
 #cod_base_sinapi_data =
 ref_mes = ("_".join(base_sinapi.split()))
@@ -35,6 +35,9 @@ elif base_sinapi=='Dezembro 2021':
 elif base_sinapi=='Fevereiro 2022':
     file = os.path.join(path_data, ref_mes, 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202202_NaoDesonerado.xls')
     file_insumos_custo= os.path.join(path_data, ref_mes, 'SINAPI_Preco_Ref_Insumos_SC_022022_NaoDesonerado.xls') 
+elif base_sinapi=='Marco 2022':
+    file = os.path.join(path_data, ref_mes, 'SINAPI_Custo_Ref_Composicoes_Analitico_SC_202203_NaoDesonerado.xls')
+    file_insumos_custo= os.path.join(path_data, ref_mes, 'SINAPI_Preco_Ref_Insumos_SC_032022_NaoDesonerado.xls') 
 
 file_insumos_ficha = os.path.join(path_data, ref_mes, 'Arquivos A a Z_'+ref_mes+'.csv')
 
