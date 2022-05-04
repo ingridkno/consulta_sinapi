@@ -7,10 +7,17 @@ from streamlit_option_menu import option_menu
 
 st.set_page_config(layout="wide")
 
-with st.sidebar:
-    selected_menu = option_menu(menu_title= None,
-                                options=["Sinapi", "Painel de Preços"])
+selected_menu = option_menu(menu_title= None,
+                            options=["APP", "Sinapi", "Painel de Preços"],
+                           orientation="horizontal",
+                           icons=["skip-forward", "stack", "graph-up-arrow"], 
+                           default_index=0)
 
+if selected_menu== "APP":
+    st.title("Engenharia e Arquitetura")
+    st.write("Consulte o preço de cada item ou serviço para obras e serviços de engenharia")
+    
+    
 if selected_menu== "Sinapi":
 
     encargo_mensalista_sem_desoneracao = 70.94
