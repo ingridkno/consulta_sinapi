@@ -240,6 +240,16 @@ if selected_menu== "Sinapi":
 
 if selected_menu=="Painel de Preços":
     st.text("Em desenvolvimento")
+    df_material_painel = pd.read_excel(r'data\painel_precos\catmatfev2022.xlsx')
+    df_servicos_painel = pd.read_excel(r'data\painel_precos\catserfev2022.xlsx')
+    
+    lista_opcoes=['Material', 'Serviço']
+    tipo_busca = st.radio('Tipo de busca', lista_opcoes, 0)
+    
+    if tipo_busca==lista_opcoes[0]:
+      st.dataframe(df_material_painel)
+    elif tipo_busca==lista_opcoes[1]:
+      st.dataframe(df_servicos_painel)
 #----------------------------------------------------------------------------------------------------------------------------
 # import pandas as pd
 # import unicodedata
