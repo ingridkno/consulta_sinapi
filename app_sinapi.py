@@ -240,8 +240,8 @@ if selected_menu== "Sinapi":
 
 if selected_menu=="Painel de Preços":
     st.text("Em desenvolvimento")
-    df_material_painel = pd.read_excel('./data/painel_precos/catmatfev2022.xlsx')
-    df_servicos_painel = pd.read_excel('./data/painel_precos/catserfev2022.xlsx')
+    df_material_painel = pd.read_excel('./data/planilha_precos/catmatfev2022.xlsx')
+    df_servicos_painel = pd.read_excel('./data/planilha_precos/catserfev2022.xlsx')
     
     lista_opcoes=['Material', 'Serviço']
     tipo_busca = st.radio('Tipo de busca', lista_opcoes, 0)
