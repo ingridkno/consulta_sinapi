@@ -266,7 +266,7 @@ if selected_menu=="Painel de Preços":
 
     
     if tipo_busca==lista_opcoes[0]:
-      st.dataframe(df_material_painel)
+      st.dataframe(df_material_painel.head(100))
     elif tipo_busca==lista_opcoes[1]:
       st.dataframe(df_servicos_painel)
 #----------------------------------------------------------------------------------------------------------------------------
