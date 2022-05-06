@@ -242,14 +242,31 @@ if selected_menu=="Painel de Preços":
     st.text("Em desenvolvimento")
     df_material_painel_01 = pd.read_csv('./data/planilha_precos/catmatfev2022 - Lista CATMAT_parte1.csv', header=4)
     df_material_painel_02 = pd.read_csv('./data/planilha_precos/catmatfev2022 - Lista CATMAT_parte2.csv', header=4)
+    df_material_painel = df_material_painel_01.append(df_material_painel_02)
+    
     df_servicos_painel = pd.read_csv('./data/planilha_precos/catserfev2022 - Lista CATSER.csv', header=4)
     
     lista_opcoes=['Material', 'Serviço']
     tipo_busca = st.radio('Tipo de busca', lista_opcoes, 0)
     
+    link= "http://compras.dados.gov.br/materiais/doc/material/000"#482678.html
+    'Codigo Material Serviço'
+    
+    def make_clickable2(link):
+      # target _blank to open new window
+      # extract clickable text to display for your link
+      text = link.split(r'/')[-1]
+      return f'<a target="_blank" href="{link}">{text}</a>'
+
+
+    df_material_painel['Codigo Material Serviço'] = link+df_material_painel['Codigo Material Serviço'].fillna(0).astype(int).astype(str)
+    #df_insumos['cod_ibge'] = link+df_insumos['cod_ibge'].fillna(0).astype(int).astype(str)
+    # link is the column with hyperlinks
+    df_material_painel['Codigo Material Serviço'] = df_material_painel['Codigo Material Serviço'].apply(make_clickable2)
+
+    
     if tipo_busca==lista_opcoes[0]:
-      st.dataframe(df_material_painel_01.head())
-      st.dataframe(df_material_painel_02.head())
+      st.dataframe(df_material_painel)
     elif tipo_busca==lista_opcoes[1]:
       st.dataframe(df_servicos_painel)
 #----------------------------------------------------------------------------------------------------------------------------
