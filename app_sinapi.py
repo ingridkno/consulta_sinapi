@@ -240,14 +240,16 @@ if selected_menu== "Sinapi":
 
 if selected_menu=="Painel de Preços":
     st.text("Em desenvolvimento")
-    df_material_painel = pd.read_excel('./data/planilha_precos/catmatfev2022.xlsx')
-    df_servicos_painel = pd.read_excel('./data/planilha_precos/catserfev2022.xlsx')
+    df_material_painel_01 = pd.read_excel('./data/planilha_precos/catmatfev2022 - Lista CATMAT_parte1.csv')
+    df_material_painel_02 = pd.read_excel('./data/planilha_precos/catmatfev2022 - Lista CATMAT_parte2.csv')
+    df_servicos_painel = pd.read_excel('./data/planilha_precos/catserfev2022 - Lista CATSER.csv')
     
     lista_opcoes=['Material', 'Serviço']
     tipo_busca = st.radio('Tipo de busca', lista_opcoes, 0)
     
     if tipo_busca==lista_opcoes[0]:
-      st.dataframe(df_material_painel)
+      st.dataframe(df_material_painel_01.head())
+      st.dataframe(df_material_painel_02.head())
     elif tipo_busca==lista_opcoes[1]:
       st.dataframe(df_servicos_painel)
 #----------------------------------------------------------------------------------------------------------------------------
