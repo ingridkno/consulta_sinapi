@@ -266,9 +266,10 @@ if selected_menu=="Painel de Preços":
 
     
     if tipo_busca==lista_opcoes[0]:
-      st.dataframe(df_material_painel.head(100))
+      #st.dataframe(df_material_painel.head(100))
+      st.write(df_material_painel.head(100), unsafe_allow_html=True)
     elif tipo_busca==lista_opcoes[1]:
-      st.dataframe(df_servicos_painel)
+      st.write(df_servicos_painel)
 #----------------------------------------------------------------------------------------------------------------------------
 # import pandas as pd
 # import unicodedata
